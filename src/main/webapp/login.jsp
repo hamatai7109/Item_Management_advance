@@ -11,7 +11,7 @@
   <div class="main">
     <main>
       <div class="imageWrap">
-        <img class="image" src="../../assets/images/seassist_logo.png" alt="ロゴ">
+        <img style="height:80px;" class="image" src="images/seassist_logo.png" alt="ロゴ">
       </div>
       <h2>従業員管理システム</h2>
       <form action="login" method="post">
