@@ -7,6 +7,9 @@
 <title>ヘッダー</title>
 </head>
 <body>
-	<p>テスト</p>>
+	<div style="display: flex; justify-content: space-between; padding: 20px 40px;">
+		<img style="height:60px;" src="images/seassist_logo.png" alt="ロゴ">
+    	<button style="cursor: pointer;" onclick="location.href='logout'" formmethod="get">ログアウト</button>
+	</div>
 </body>
 </html>

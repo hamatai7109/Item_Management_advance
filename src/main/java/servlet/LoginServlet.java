@@ -51,7 +51,7 @@ public class LoginServlet extends HttpServlet {
 		String id = request.getParameter("id"); // ユーザID
 		String password = request.getParameter("password"); // パスワード
 
-		String url = "login.jsp"; // 転送用パスを格納する変数
+		String url = "loginErr.jsp"; // 転送用パスを格納する変数
 
 		UserDAO dao = new UserDAO(); // UserDAOクラスをインスタンス化
 
@@ -75,7 +75,7 @@ public class LoginServlet extends HttpServlet {
 
 			// 例外キャッチ
 		} catch (ClassNotFoundException | SQLException e) {
-			url = "err.jsp"; // エラーページのパス
+			url = "loginErr.jsp"; // エラーページのパス
 			e.printStackTrace();
 		}
 

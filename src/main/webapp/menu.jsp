@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="assets/stylesheets/app.css">
 </head>
 <body>
+  <jsp:include page="/header.jsp" />
   <div class="main">
     <main>
       <h2>従業員管理システム</h2>

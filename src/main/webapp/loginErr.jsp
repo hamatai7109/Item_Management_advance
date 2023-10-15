@@ -7,6 +7,7 @@
 <title></title>
 </head>
 <body>
-<h1>エラー画面です</h1>
+<h1>ログインに失敗しました。</h1>
+<p>IDとPasswordを確認し、再度ログインしてください。</p>
 <button onclick="history.back()">戻る</button>
 </html>
