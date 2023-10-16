@@ -4,10 +4,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>ログインエラーページ</title>
+<title>言語登録エラーページ</title>
 </head>
 <body>
-<h1>ログインに失敗しました。</h1>
-<p>IDとPasswordを確認し、再度ログインしてください。</p>
+<h1>言語登録に失敗しました。</h1>
+<p>言語コードと言語名を確認し、再度追加してください。</p>
 <button onclick="history.back()">戻る</button>
 </html>

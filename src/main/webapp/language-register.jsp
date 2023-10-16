@@ -9,8 +9,8 @@
 <body>
 	<h1 style="text-align: center;">言語登録フォーム</h1>
 	<form style="text-align: center;" action="language-register" method="post">
-		<input type="text" name="languageCode" placeholder="L000"><br>
-	    <input type="text" name="languageName" placeholder="Java"><br>
+		<input type="text" name="languageCode" placeholder="L000" required><br>
+	    <input type="text" name="languageName" placeholder="Java" required><br>
 	    <input type="submit" value="言語登録確定">
 	    <input type="reset" value="クリア">
 	</form>
