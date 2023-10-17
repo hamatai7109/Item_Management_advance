@@ -54,7 +54,7 @@ public class MenuServlet extends HttpServlet {
 
 		switch (button) {
 		case "従業員一覧":
-			url = "language-list.jsp";
+			url = "employee-list.jsp";
 			break;
 		case "従業員登録画面へ":
 			url = "employee-register.jsp";
