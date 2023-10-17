@@ -22,7 +22,7 @@ public class EmployeeDAO {
 			String sectionCode, String languageCode, String hireDate)
 			throws ClassNotFoundException, SQLException {
 
-		String sql = "INSERT INTO m_language(l_name, f_name, gender, birthday, phone_number, section_code, language_code, hire_date) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO m_employee(l_name, f_name, gender, birthday, phone_number, section_code, language_code, hire_date) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
 
 		// try-with-resourcesを使用し、データベース接続確立とプリペアドステートメントを取得
 		try (Connection con = ConnectionManager.getConnection();
@@ -40,6 +40,9 @@ public class EmployeeDAO {
 
 			// SQL文の実行
 			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace(); // エラーログを記録
+			throw new RuntimeException("従業員情報を追加できませんでした。", e);
 		}
 	}
 }

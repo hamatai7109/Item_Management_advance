@@ -3,6 +3,7 @@ package servlet;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -59,14 +60,16 @@ public class EmployeeServlet extends HttpServlet {
 		EmployeeDAO dao = new EmployeeDAO(); // LanguageDAOクラスをインスタンス化
 
 		try {
-			// addLanguageを呼び出して、データベースに値を追加
+			// addEmployeeを呼び出して、データベースに値を追加
 			dao.addEmployee(lastName, firstName, gender, birthday, phoneNumber, sectionCode, languageCode, hireDate);
-
 			url = "employeeSuccess.jsp";
-			response.sendRedirect(url);
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
-			response.sendRedirect("employeeErr.jsp");
+			url = "employeeErr.jsp";
 		}
+
+		// 転送
+		RequestDispatcher rd = request.getRequestDispatcher(url);
+		rd.forward(request, response);
 	}
 }

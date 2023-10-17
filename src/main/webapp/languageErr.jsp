@@ -7,7 +7,9 @@
 <title>言語登録エラーページ</title>
 </head>
 <body>
-<h1>言語登録に失敗しました。</h1>
-<p>言語コードと言語名を確認し、再度追加してください。</p>
-<button onclick="history.back()">戻る</button>
+	<div style="text-align:center;">	
+		<h1>言語登録に失敗しました。</h1>
+		<p>言語コードと言語名を確認し、再度追加してください。</p>
+		<button onclick="history.back()">戻る</button>
+	</div>
 </html>
