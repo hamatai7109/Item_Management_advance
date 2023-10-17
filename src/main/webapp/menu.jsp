@@ -14,8 +14,8 @@
       <h2>従業員管理システム</h2>
       <form action="menu" method="post">
 	      <input type="submit" name="button" value="従業員一覧"><br>
-	      <input type="submit" name="button" value="従業員登録画面へ"><br>
-	      <input type="submit" name="button" value="経験言語登録画面へ">
+	      <input style="margin-top: 10px;" type="submit" name="button" value="従業員登録画面へ"><br>
+	      <input style="margin-top: 10px;" type="submit" name="button" value="経験言語登録画面へ">
       </form>
       </main>
   </div>

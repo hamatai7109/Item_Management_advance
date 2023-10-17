@@ -8,9 +8,7 @@
 	<title>ログアウト</title>
 </head>
 <body>
-	ログアウトしました。
-	<br />
-	<br />
-	<a href="login.jsp">→ログインページへ戻る</a>
+	<h1>${logoutMessage }</h1>
+	<button onclick="location.href=`login.jsp`">ログイン画面へ</button>
 </body>
 </html>
