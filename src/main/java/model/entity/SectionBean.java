@@ -3,46 +3,32 @@ package model.entity;
 import java.io.Serializable;
 
 public class SectionBean implements Serializable {
-	/**
-	 * section_code
-	 */
-	private String sectionCode;
+	private String sectionCode; // 部署コード
+	private String sectionName; // 部署名
 
 	/**
-	 * section_name
-	 */
-	private String sectionName;
-
-	/**
-	 * デフォルトコンストラクタ
-	 */
-	public SectionBean() {
-
-	}
-
-	/**
-	 * @return sectionCode
+	 * @return 部署コード
 	 */
 	public String getSectionCode() {
 		return sectionCode;
 	}
 
 	/**
-	 * @param sectionCode セットする sectionCode
+	 * @param sectionCode セットする部署コード
 	 */
 	public void setSectionCode(String sectionCode) {
 		this.sectionCode = sectionCode;
 	}
 
 	/**
-	 * @return sectionName
+	 * @return 部署名
 	 */
 	public String getSectionName() {
 		return sectionName;
 	}
 
 	/**
-	 * @param sectionName セットする sectionName
+	 * @param sectionName セットする部署名
 	 */
 	public void setSectionName(String sectionName) {
 		this.sectionName = sectionName;

@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.dao.LanguageDAO;
 import model.dao.SectionDAO;
+import model.entity.LanguageBean;
 import model.entity.SectionBean;
 
 /**
@@ -41,8 +43,9 @@ public class MenuServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// リクエストのエンコーディング
+		// リクエスト/レスポンスのエンコーディング
 		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
 
 		// リクエストパラメータの取得
 		String button = request.getParameter("button"); //button
@@ -57,10 +60,15 @@ public class MenuServlet extends HttpServlet {
 			url = "employee-register.jsp";
 
 			SectionDAO sectionDAO = new SectionDAO();
-			List<SectionBean> sectionNames = null;
+			LanguageDAO languageDAO = new LanguageDAO();
+
+			List<SectionBean> sections = null;
+			List<LanguageBean> languages = null;
 			try {
-				sectionNames = sectionDAO.getAllSections();
-				request.setAttribute("sectionNames", sectionNames);
+				sections = sectionDAO.getAllSections();
+				languages = languageDAO.getAllLanguages();
+				request.setAttribute("sections", sections);
+				request.setAttribute("languages", languages);
 			} catch (ClassNotFoundException | SQLException e) {
 				// TODO 自動生成された catch ブロック
 				e.printStackTrace();

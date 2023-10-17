@@ -14,12 +14,13 @@ public class SectionDAO {
 	 * データベースからSELECT文で部署一覧を取得
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
+	 * @return 部署一覧
 	 */
 	public List<SectionBean> getAllSections()
 			throws ClassNotFoundException, SQLException {
-		List<SectionBean> sectionNames = new ArrayList<>();
+		List<SectionBean> sections = new ArrayList<>();
 
-		String sql = "SELECT section_code, section_name FROM m_section";
+		String sql = "SELECT section_code, section_name FROM m_section ORDER BY section_code";
 		ResultSet resultSet = null;
 
 		// try-with-resourcesを使用し、データベース接続確立とプリペアドステートメントを取得
@@ -30,12 +31,12 @@ public class SectionDAO {
 			resultSet = pstmt.executeQuery();
 
 			while (resultSet.next()) {
-				SectionBean sections = new SectionBean();
-				sections.setSectionCode(resultSet.getString("section_code"));
-				sections.setSectionName(resultSet.getString("section_name"));
-				sectionNames.add(sections);
+				SectionBean section = new SectionBean();
+				section.setSectionCode(resultSet.getString("section_code"));
+				section.setSectionName(resultSet.getString("section_name"));
+				sections.add(section);
 			}
 		}
-		return sectionNames;
+		return sections;
 	}
 }

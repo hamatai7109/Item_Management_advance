@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="model.entity.SectionBean" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+ 
 <!DOCTYPE html>
 <html>
 <head>
@@ -43,19 +46,19 @@
 		</div>
 		<div>
 			<label>部署
-				<select name="sectionCode">
-					<% for (model.entity.SectionBean section : sectionNames) { %>
-        				<option value="<%= section.getSectionCode() %>"><%= section.getSectionName() %></option>
-    				<% } %>
+				<select name="sectionCode" required>
+					<c:forEach var="section" items="${sections}">
+					    <option value="<c:out value="${section.sectionCode}" />"><c:out value="${section.sectionName}" /></option>
+					</c:forEach>
 				</select>
 			</label>
 		</div>
 		<div>
 			<label>経験言語
-				<select name="languageCode">
-					<option value="サンプル1">サンプル1</option>
-					<option value="サンプル2">サンプル2</option>
-					<option value="サンプル3">サンプル3</option>
+				<select name="languageCode" required>
+					<c:forEach var="language" items="${languages}">
+					    <option value="<c:out value="${language.languageCode}" />"><c:out value="${language.languageName}" /></option>
+					</c:forEach>
 				</select>
 			</label>
 		</div>
