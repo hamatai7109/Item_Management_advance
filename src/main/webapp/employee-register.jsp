@@ -12,6 +12,10 @@
 <body>
 <div style="text-align: center;">
 	<h1>従業員登録フォーム</h1>
+	<%-- 従業員登録に失敗したときのメッセージ --%>
+	<c:if test="${not empty requestScope.errorMessage}">
+	    <p style="color: red">${requestScope.errorMessage}</p>
+	</c:if>
 	<form action="employee-register" method="post">
 		<div>
 			<label>氏名（姓）

@@ -35,7 +35,9 @@ public class LoginServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		// ログインフォームを表示するためのGETリクエスト処理
+		RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
+		dispatcher.forward(request, response);
 	}
 
 	/**
@@ -51,7 +53,7 @@ public class LoginServlet extends HttpServlet {
 		String id = request.getParameter("id"); // ユーザID
 		String password = request.getParameter("password"); // パスワード
 
-		String url = "loginErr.jsp"; // 転送用パスを格納する変数
+		String url = null; // 転送用パスを格納する変数
 
 		UserDAO dao = new UserDAO(); // UserDAOクラスをインスタンス化
 
@@ -70,12 +72,13 @@ public class LoginServlet extends HttpServlet {
 
 				// idとpasswordがデータベースに登録されていなかった場合
 			} else {
+				url = "login.jsp"; // ログイン画面のパス
+				request.setAttribute("errorMessage", "ログインに失敗しました。もう一度入力してください。");
 
 			}
 
 			// 例外キャッチ
 		} catch (ClassNotFoundException | SQLException e) {
-			url = "loginErr.jsp"; // エラーページのパス
 			e.printStackTrace();
 		}
 

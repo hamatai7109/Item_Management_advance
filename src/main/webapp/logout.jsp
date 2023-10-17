@@ -9,6 +9,8 @@
 </head>
 <body>
 	<h1>${logoutMessage }</h1>
-	<button onclick="location.href=`login.jsp`">ログイン画面へ</button>
-</body>
+	<form action="login" method="get">
+		<input type="submit" value="ログイン画面へ">
+	</form>
+	</body>
 </html>

@@ -3,6 +3,7 @@ package servlet;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -55,12 +56,14 @@ public class LanguageServlet extends HttpServlet {
 		try {
 			// addLanguageを呼び出して、データベースに値を追加
 			dao.addLanguage(languageCode, languageName);
-
 			url = "languageSuccess.jsp";
-			response.sendRedirect(url);
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
-			response.sendRedirect("languageErr.jsp");
+			url = "language-register.jsp";
+			request.setAttribute("errorMessage", "言語登録に失敗しました。もう一度入力してください。");
 		}
+		// 転送
+		RequestDispatcher rd = request.getRequestDispatcher(url);
+		rd.forward(request, response);
 	}
 }

@@ -9,6 +9,10 @@
 <body>
 	<div style="text-align: center;">
 		<h1>言語登録フォーム</h1>
+		<%-- 言語登録に失敗したときのメッセージ --%>
+		<c:if test="${not empty requestScope.errorMessage}">
+		    <p style="color: red">${requestScope.errorMessage}</p>
+		</c:if>
 		<form action="language-register" method="post">
 			<input type="text" name="languageCode" placeholder="L000" required><br>
 		    <input type="text" name="languageName" placeholder="Java" required><br>
