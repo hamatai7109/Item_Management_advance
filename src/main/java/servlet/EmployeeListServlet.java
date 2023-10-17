@@ -11,22 +11,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.dao.LanguageDAO;
-import model.dao.SectionDAO;
-import model.entity.LanguageBean;
-import model.entity.SectionBean;
+import model.dao.EmployeeDAO;
+import model.entity.EmployeeBean;
 
 /**
  * Servlet implementation class MenuServlet
  */
-@WebServlet("/menu")
-public class MenuServlet extends HttpServlet {
+@WebServlet("/employee-list")
+public class EmployeeListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public MenuServlet() {
+	public EmployeeListServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -49,39 +47,21 @@ public class MenuServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 
-		// リクエストパラメータの取得
-		String button = request.getParameter("button"); //button
+		// 転送用パスを格納する変数
+		String url = null;
 
-		String url = null; // 転送用パスを格納する変数
+		EmployeeDAO employeeDAO = new EmployeeDAO();
 
-		switch (button) {
-		case "従業員一覧":
-			url = "employee-list";
-			break;
-		case "従業員登録画面へ":
-			url = "employee-register.jsp";
+		List<EmployeeBean> employees = null;
 
-			SectionDAO sectionDAO = new SectionDAO();
-			LanguageDAO languageDAO = new LanguageDAO();
+		try {
+			url = "employee-list.jsp";
 
-			List<SectionBean> sections = null;
-			List<LanguageBean> languages = null;
-			try {
-				sections = sectionDAO.getAllSections();
-				languages = languageDAO.getAllLanguages();
-				request.setAttribute("sections", sections);
-				request.setAttribute("languages", languages);
-			} catch (ClassNotFoundException | SQLException e) {
-				// TODO 自動生成された catch ブロック
-				e.printStackTrace();
-			}
-			break;
-		case "経験言語登録画面へ":
-			url = "language-register.jsp";
-			break;
-		case "メニュー画面へ":
-			url = "menu.jsp";
-			break;
+			employees = employeeDAO.getAllEmployees();
+			request.setAttribute("employees", employees);
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
 		}
 
 		// 転送

@@ -21,7 +21,7 @@ public class EmployeeBean implements Serializable {
 	/**
 	 * 性別
 	 */
-	private char gender;
+	private String gender;
 
 	/**
 	 * 生年月日
@@ -100,15 +100,15 @@ public class EmployeeBean implements Serializable {
 	/**
 	 * @return gender
 	 */
-	public char getGender() {
+	public String getGender() {
 		return gender;
 	}
 
 	/**
 	 * @param gender　を セットする
 	 */
-	public void setGender(char gender) {
-		this.gender = gender;
+	public void setGender(String string) {
+		this.gender = string;
 	}
 
 	/**

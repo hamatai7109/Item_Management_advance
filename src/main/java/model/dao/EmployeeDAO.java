@@ -2,7 +2,12 @@ package model.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import model.entity.EmployeeBean;
 
 public class EmployeeDAO {
 	/**
@@ -44,5 +49,42 @@ public class EmployeeDAO {
 			e.printStackTrace(); // エラーログを記録
 			throw new RuntimeException("従業員情報を追加できませんでした。", e);
 		}
+	}
+
+	/**
+	 * データベースからSELECT文で従業員一覧を取得
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 * @return 従業員一覧
+	 */
+	public List<EmployeeBean> getAllEmployees()
+			throws ClassNotFoundException, SQLException {
+		List<EmployeeBean> employees = new ArrayList<>();
+
+		String sql = "SELECT employee_id,l_name,f_name,gender,birthday,phone_number,section_code,language_code,hire_date FROM m_employee ORDER BY employee_id";
+		ResultSet resultSet = null;
+
+		// try-with-resourcesを使用し、データベース接続確立とプリペアドステートメントを取得
+		try (Connection con = ConnectionManager.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql)) {
+
+			//SELECTした結果の従業員データをresultSetに格納
+			resultSet = pstmt.executeQuery();
+
+			while (resultSet.next()) {
+				EmployeeBean employee = new EmployeeBean();
+				employee.setEmployeeId(resultSet.getInt("employee_id"));
+				employee.setLName(resultSet.getString("l_name"));
+				employee.setFName(resultSet.getString("f_name"));
+				employee.setGender(resultSet.getString("gender"));
+				employee.setBirthday(resultSet.getString("birthday"));
+				employee.setPhoneNumber(resultSet.getString("phone_number"));
+				employee.setSectionCode(resultSet.getString("section_code"));
+				employee.setLanguageCode(resultSet.getString("language_code"));
+				employee.setHireDate(resultSet.getString("hire_date"));
+				employees.add(employee);
+			}
+		}
+		return employees;
 	}
 }

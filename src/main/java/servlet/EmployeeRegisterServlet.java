@@ -16,13 +16,13 @@ import model.dao.EmployeeDAO;
  * Servlet implementation class LoginServlet
  */
 @WebServlet("/employee-register")
-public class EmployeeServlet extends HttpServlet {
+public class EmployeeRegisterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	* @see HttpServlet#HttpServlet()
 	*/
-	public EmployeeServlet() {
+	public EmployeeRegisterServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
