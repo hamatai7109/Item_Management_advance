@@ -14,7 +14,7 @@
         <img style="height:80px;" class="image" src="images/seassist_logo.png" alt="ロゴ">
       </div>
       <h2>従業員管理システム</h2>
-      <form action="login" method="post">
+      <form action=login method="post">
         <input type="text" name="id" placeholder="userId"><br>
         <input type="password" name="password" placeholder="password"><br>
         <br>
