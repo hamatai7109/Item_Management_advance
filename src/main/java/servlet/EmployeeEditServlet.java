@@ -110,7 +110,6 @@ public class EmployeeEditServlet extends HttpServlet {
 			request.setAttribute("sections", sections);
 			request.setAttribute("languages", languages);
 			request.setAttribute("employeeId", employeeId);
-			request.setAttribute("employeeId", employeeId);
 			request.setAttribute("errorMessage", errorMessage);
 		}
 

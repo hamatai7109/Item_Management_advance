@@ -94,6 +94,32 @@ public class EmployeeDAO {
 	}
 
 	/**
+	 * 入力された従業員情報をデータベースのm_employeeテーブルで更新
+	 * @param employeeId 従業員ID
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
+	public void deleteEmployee(int employeeId)
+			throws ClassNotFoundException, SQLException {
+
+		String sql = "DELETE m_employee WHERE employee_id = ?;";
+
+		// try-with-resourcesを使用し、データベース接続確立とプリペアドステートメントを取得
+		try (Connection con = ConnectionManager.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql)) {
+
+			// プレースホルダに値をセット
+			pstmt.setInt(1, employeeId);
+
+			// SQL文の実行
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace(); // エラーログを記録
+			throw new RuntimeException("従業員を削除できませんでした。", e);
+		}
+	}
+
+	/**
 	 * データベースからSELECT文で従業員一覧を取得
 	 * @throws ClassNotFoundException
 	 * @throws SQLException

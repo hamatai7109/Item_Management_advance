@@ -30,7 +30,7 @@
 	          <th>部署</th>
 	          <th>経験言語</th>
 	          <th>入社日</th>
-	          <th>更新日</th>
+	          <th>更新日時</th>
 	        </tr>
 	        <c:forEach var="employee" items="${employees}">
 	        <tr>

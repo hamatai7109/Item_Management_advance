@@ -33,7 +33,6 @@
           <th>部署</th>
           <th>経験言語</th>
           <th>入社日</th>
-          <th></th>
         </tr>
         <c:forEach var="employee" items="${employees}">
 	        <tr>
