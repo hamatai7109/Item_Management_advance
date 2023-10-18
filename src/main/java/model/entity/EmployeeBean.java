@@ -49,6 +49,11 @@ public class EmployeeBean implements Serializable {
 	private String hireDate;
 
 	/**
+	 * 更新日付
+	 */
+	private String updateDatetime;
+
+	/**
 	 * デフォルトコンストラクタ
 	 */
 	public EmployeeBean() {
@@ -179,6 +184,20 @@ public class EmployeeBean implements Serializable {
 	 */
 	public void setHireDate(String hireDate) {
 		this.hireDate = hireDate;
+	}
+
+	/**
+	 * @return updateDatetime
+	 */
+	public String getUpdateDatetime() {
+		return updateDatetime;
+	}
+
+	/**
+	 * @param hireDate　を セットする
+	 */
+	public void setUpdateDatetime(String updateDatetime) {
+		this.updateDatetime = updateDatetime;
 	}
 
 }

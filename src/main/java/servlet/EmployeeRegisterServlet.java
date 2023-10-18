@@ -62,7 +62,7 @@ public class EmployeeRegisterServlet extends HttpServlet {
 		try {
 			// addEmployeeを呼び出して、データベースに値を追加
 			dao.addEmployee(lastName, firstName, gender, birthday, phoneNumber, sectionCode, languageCode, hireDate);
-			url = "employeeSuccess.jsp";
+			url = "employee-registerSuccess.jsp";
 		} catch (RuntimeException | ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 			String errorMessage = "従業員登録に失敗しました。もう一度入力してください。";

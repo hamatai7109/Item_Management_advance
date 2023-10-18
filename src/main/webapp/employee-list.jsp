@@ -48,7 +48,8 @@
 	          <td>${employee.getHireDate()}</td>
 	          <td>
 		          <form action="employee-detail" method="post">
-		          	<input type="submit" name="searchWord" value="詳細">
+		          	<input type="hidden" name="employeeId" value="${employee.getEmployeeId()}">
+		          	<input type="submit"value="詳細">
 		          </form>
 	          </td>
 	        </tr>

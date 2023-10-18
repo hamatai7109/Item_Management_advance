@@ -56,7 +56,7 @@ public class LanguageServlet extends HttpServlet {
 		try {
 			// addLanguageを呼び出して、データベースに値を追加
 			dao.addLanguage(languageCode, languageName);
-			url = "languageSuccess.jsp";
+			url = "language-registerSuccess.jsp";
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 			url = "language-register.jsp";
