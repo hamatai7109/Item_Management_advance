@@ -57,11 +57,12 @@ public class EmployeeRegisterServlet extends HttpServlet {
 
 		String url = null; // 転送用パスを格納する変数
 
-		EmployeeDAO dao = new EmployeeDAO(); // LanguageDAOクラスをインスタンス化
+		EmployeeDAO employeeDao = new EmployeeDAO(); // LanguageDAOクラスをインスタンス化
 
 		try {
 			// addEmployeeを呼び出して、データベースに値を追加
-			dao.addEmployee(lastName, firstName, gender, birthday, phoneNumber, sectionCode, languageCode, hireDate);
+			employeeDao.addEmployee(lastName, firstName, gender, birthday, phoneNumber, sectionCode, languageCode,
+					hireDate);
 			url = "employee-registerSuccess.jsp";
 		} catch (RuntimeException | ClassNotFoundException | SQLException e) {
 			e.printStackTrace();

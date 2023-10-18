@@ -45,12 +45,14 @@
 	          <td>${employee.getHireDate()}</td>
 	   	      <td>${employee.getUpdateDatetime()}</td>
 	          <td>
-		          <form action="employee-detail" method="post">
+		          <form action="employee-edit" method="post">
+        		    <input type="hidden" name="employeeId" value="${employee.getEmployeeId()}">
 		          	<input type="submit"value="編集">
 		          </form>
 	          </td>
 	          <td>
-		          <form action="employee-detail" method="post">
+		          <form action="employee-delete" method="post">
+       		        <input type="hidden" name="employeeId" value="${employee.getEmployeeId()}">
 		          	<input type="submit"value="削除">
 		          </form>
 	          </td>
