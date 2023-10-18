@@ -52,7 +52,7 @@
 			<label>部署
 				<select name="sectionCode" required>
 					<c:forEach var="section" items="${sections}">
-					    <option value="<c:out value="${section.sectionCode}" />"><c:out value="${section.sectionName}" /></option>
+					    <option value="<c:out value="${section.getSectionCode()}" />"><c:out value="${section.getSectionName()}" /></option>
 					</c:forEach>
 				</select>
 			</label>
@@ -61,7 +61,7 @@
 			<label>経験言語
 				<select name="languageCode" required>
 					<c:forEach var="language" items="${languages}">
-					    <option value="<c:out value="${language.languageCode}" />"><c:out value="${language.languageName}" /></option>
+					    <option value="<c:out value="${language.getLanguageCode()}" />"><c:out value="${language.getLanguageName()}" /></option>
 					</c:forEach>
 				</select>
 			</label>

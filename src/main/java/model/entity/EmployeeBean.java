@@ -80,7 +80,7 @@ public class EmployeeBean implements Serializable {
 	 * @param lName　を セットする
 	 */
 	public void setLName(String lName) {
-		this.fName = lName;
+		this.lName = lName;
 	}
 
 	/**
@@ -107,8 +107,8 @@ public class EmployeeBean implements Serializable {
 	/**
 	 * @param gender　を セットする
 	 */
-	public void setGender(String string) {
-		this.gender = string;
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
 
 	/**
@@ -170,7 +170,7 @@ public class EmployeeBean implements Serializable {
 	/**
 	 * @return hireDate
 	 */
-	public String geHireDate() {
+	public String getHireDate() {
 		return hireDate;
 	}
 
