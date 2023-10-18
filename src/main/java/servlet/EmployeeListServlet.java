@@ -54,10 +54,24 @@ public class EmployeeListServlet extends HttpServlet {
 
 		List<EmployeeBean> employees = null;
 
-		try {
-			url = "employee-list.jsp";
+		// searchWord パラメータを取得
+		String searchWord = request.getParameter("searchWord");
 
-			employees = employeeDAO.getAllEmployees();
+		try {
+			if (searchWord != null) {
+				// searchWord が指定されている場合、検索メソッドを呼び出す
+				employees = employeeDAO.getSearchedEmployees(searchWord);
+
+				// 検索結果がnullの場合、エラーメッセージをセット
+				if (employees.size() == 0) {
+					request.setAttribute("errorMessage", "該当する検索結果がありません。");
+				}
+			} else {
+				// searchWord が指定されていない場合、全従業員を取得するメソッドを呼び出す
+				employees = employeeDAO.getAllEmployees();
+			}
+
+			url = "employee-list.jsp";
 			request.setAttribute("employees", employees);
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO 自動生成された catch ブロック

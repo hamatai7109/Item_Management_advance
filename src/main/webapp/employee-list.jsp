@@ -10,10 +10,18 @@
 <body>
 	<div style="text-align : center; padding-top: 50px;">
 		<h1>従業員一覧画面です。</h1>
+	
+		<c:if test="${not empty requestScope.errorMessage}">
+		    <p style="color: red">${requestScope.errorMessage}</p>
+		</c:if>
+		
 		<form style="display: flex; gap: 10px; justify-content:center;"  action="employee-list" method="post">
-			<input type="text" name="searchWord">
+			<input type="text" name="searchWord" required>
 			<input type="submit" value="従業員検索">
 		</form>
+		<form style="margin-top:20px;" action="employee-list" method="post">
+		    	<input type="submit" value="従業員一覧を表示する">
+			</form>		
 		<table border="1" style="margin: 10px auto 0px auto;">
 		<tr>
           <th>従業員ID</th>
@@ -38,10 +46,17 @@
 	          <td>${employee.getSectionCode()}</td>
 	          <td>${employee.getLanguageCode()}</td>
 	          <td>${employee.getHireDate()}</td>
-	          <td><form action="employee-detail" method="post"><input type="submit" value="詳細"></form></td>
+	          <td>
+		          <form action="employee-detail" method="post">
+		          	<input type="submit" name="searchWord" value="詳細">
+		          </form>
+	          </td>
 	        </tr>
         </c:forEach>
 		</table>
+		<form style="margin-top:20px;" action="menu" method="post">
+	      <input type="submit" name="button" value="メニュー画面へ">
+		</form>
 	</div>
 </body>
 </html>
