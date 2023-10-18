@@ -102,7 +102,7 @@ public class EmployeeDAO {
 	public void deleteEmployee(int employeeId)
 			throws ClassNotFoundException, SQLException {
 
-		String sql = "DELETE m_employee WHERE employee_id = ?;";
+		String sql = "DELETE FROM m_employee WHERE employee_id = ?";
 
 		// try-with-resourcesを使用し、データベース接続確立とプリペアドステートメントを取得
 		try (Connection con = ConnectionManager.getConnection();
