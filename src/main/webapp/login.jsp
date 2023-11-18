@@ -13,7 +13,7 @@
 			<div>
 				<img style="height:350px;" class="image" src="images/seassist_logo.png" alt="ロゴ">
 			</div>
-			<h2>従業員管理システム</h2>
+			<h2>商品管理システム</h2>
 			<%-- ログインに失敗したときのメッセージ --%>
 			<c:if test="${not empty requestScope.errorMessage}">
 			    <p style="color: red">${requestScope.errorMessage}</p>
