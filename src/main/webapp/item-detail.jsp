@@ -8,6 +8,7 @@
 <title>商品詳細</title>
 </head>
 <body>
+  <jsp:include page="/header.jsp" />
 	<div style="text-align : center; padding-top: 50px;">
 		<h1>商品詳細</h1>
 	    <c:if test="${not empty requestScope.errorMessage}">

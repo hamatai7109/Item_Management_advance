@@ -7,7 +7,8 @@
 <meta charset="UTF-8">
 <title>商品削除確認画面</title>
 </head>
-<body>
+<body>  
+<jsp:include page="/header.jsp" />
 	<div style="text-align : center; padding-top: 50px;">
 		    <c:if test="${not empty requestScope.errorMessage}">
 		        <p style="color: red">${requestScope.errorMessage}</p>

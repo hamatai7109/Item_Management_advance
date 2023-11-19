@@ -9,6 +9,7 @@
 <title>商品編集フォーム</title>
 </head>
 <body>
+<jsp:include page="/header.jsp" />
 <div style="text-align: center;">
 	<h1>商品編集フォーム</h1>
 	<%-- 商品編集に失敗したときのメッセージ --%>

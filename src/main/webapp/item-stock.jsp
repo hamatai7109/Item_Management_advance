@@ -7,6 +7,7 @@
 <title>在庫修正</title>
 </head>
 <body>
+  <jsp:include page="/header.jsp" />
 	<div style="text-align: center;">
 		<h1>在庫修正</h1>
 		<%-- 在庫修正に失敗したときのメッセージ --%>

@@ -10,6 +10,7 @@
 <title>商品登録フォーム</title>
 </head>
 <body>
+<jsp:include page="/header.jsp" />
 <div style="text-align: center;">
 	<h1>商品登録フォーム</h1>
 	<%-- 商品登録に失敗したときのメッセージ --%>
