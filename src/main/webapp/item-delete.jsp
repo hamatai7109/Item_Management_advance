@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="java.util.List" %>    
+<%@ page import="model.entity.ItemBean" %>		
+<%-- スクリプトレットを使用した場合 --%>
+<%-- <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> --%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,12 +13,26 @@
 <body>  
 <jsp:include page="/header.jsp" />
 	<div style="text-align : center; padding-top: 50px;">
-		    <c:if test="${not empty requestScope.errorMessage}">
-		        <p style="color: red">${requestScope.errorMessage}</p>
-		    </c:if>
+		    <%-- JSTL（JavaServer Pages Standard Tag Library）を使用した場合
+			<c:if test="${not empty requestScope.errorMessage}">
+		    	<p style="color: red">${requestScope.errorMessage}</p>
+			</c:if>
 			<c:forEach var="item" items="${items}">
             	<h1>${item.getItemName()}を本当に削除してもよろしいですか？ </h1>
         	</c:forEach>
+			--%>
+			<%-- スクリプトレットを使用した場合 --%>
+			<% if (request.getAttribute("errorMessage") != null) { %>
+		   		<p style="color: red"><%= request.getAttribute("errorMessage") %></p>
+			<% } %>
+			<%
+			    List<ItemBean> items = (List<ItemBean>) request.getAttribute("items");
+			    for (ItemBean item : items) {
+			%>
+			    <h1><%= item.getItemName() %>を本当に削除してもよろしいですか？ </h1>
+			<%
+			    }
+			%>
 		<table border="1" style="margin: 10px auto 0px auto;">
 			<tr>
 	          <th>商品ID</th>
@@ -26,6 +43,22 @@
 	          <th>登録日</th>
 	          <th>更新日</th>
 	        </tr>
+	        <%
+			    for (ItemBean item : items) {
+			%>
+			    <tr>
+			        <td><%= item.getItemId() %></td>
+			        <td><%= item.getItemName() %></td>
+			        <td><%= item.getMakerName() %></td>
+			        <td><%= item.getPrice() %></td>
+			        <td><%= item.getStock() %></td>
+			        <td><%= item.getInsertDatetime() %></td>
+			        <td><%= item.getUpdateDatetime() %></td>
+			    </tr>
+			<%
+			    }
+			%>
+       		<%-- スクリプトレットを使用した場合 
 	        <c:forEach var="item" items="${items}">
 		        <tr>
 		          <td>${item.getItemId()}</td>
@@ -37,6 +70,7 @@
 		   	      <td>${item.getUpdateDatetime()}</td>
 		        </tr>
         	</c:forEach>
+        	--%>
 		</table>
 		<form style="margin-top:20px;" action="item-detail" method="post">
 	      <input type="hidden" name="itemId" value="${itemId}">

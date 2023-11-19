@@ -11,9 +11,15 @@
 	<div style="text-align: center;">
 		<h1>在庫修正</h1>
 		<%-- 在庫修正に失敗したときのメッセージ --%>
+		<%-- JSTL（JavaServer Pages Standard Tag Library）を使用した場合
 		<c:if test="${not empty requestScope.errorMessage}">
-		    <p style="color: red">${requestScope.errorMessage}</p>
+	   		<p style="color: red">${requestScope.errorMessage}</p>
 		</c:if>
+		--%>
+		<%-- スクリプトレットを使用した場合 --%>
+		<% if (request.getAttribute("errorMessage") != null) { %>
+	   		<p style="color: red"><%= request.getAttribute("errorMessage") %></p>
+		<% } %>
 		<form action="item-stock" method="post">
 			<label>入荷:
 				<input type="text" name="arrival" required><br>

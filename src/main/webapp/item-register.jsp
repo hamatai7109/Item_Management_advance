@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="model.entity.MakerBean" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="java.util.List" %>    
+<%@ page import="model.entity.MakerBean" %>					
+<%-- スクリプトレットを使用した場合 --%>
+<%-- <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> --%>
  
 <!DOCTYPE html>
 <html>
@@ -14,9 +16,15 @@
 <div style="text-align: center;">
 	<h1>商品登録フォーム</h1>
 	<%-- 商品登録に失敗したときのメッセージ --%>
+	<%-- JSTL（JavaServer Pages Standard Tag Library）を使用した場合
 	<c:if test="${not empty requestScope.errorMessage}">
-	    <p style="color: red">${requestScope.errorMessage}</p>
+    	<p style="color: red">${requestScope.errorMessage}</p>
 	</c:if>
+	--%>
+	<%-- スクリプトレットを使用した場合 --%>
+	<% if (request.getAttribute("errorMessage") != null) { %>
+   		<p style="color: red"><%= request.getAttribute("errorMessage") %></p>
+	<% } %>
 	<form action="item-register" method="post" style="display: flex; flex-direction: column; gap: 10px;">
 		<div>
 			<label>商品名:
@@ -26,9 +34,18 @@
 		<div>
 			<label>メーカー:
 				<select name="makerName" required>
+					<%-- JSTL（JavaServer Pages Standard Tag Library）を使用した場合
 					<c:forEach var="maker" items="${makers}">
 					    <option value="<c:out value="${maker.getMakerCode()}" />"><c:out value="${maker.getMakerName()}" /></option>
 					</c:forEach>
+					--%>
+					<%-- スクリプトレットを使用した場合 --%>
+					<% 
+		                List<MakerBean> makers = (List<MakerBean>) request.getAttribute("makers");
+		                for (MakerBean maker : makers) {
+		            %>
+		                <option value="<%= maker.getMakerCode() %>"><%= maker.getMakerName() %></option>
+		            <% } %>
 				</select>
 			</label>
 		</div>
@@ -41,7 +58,7 @@
 			<input type="submit" value="商品登録確定">
 		</div>
 	</form>
-	<form style="margin-top:50px;" action="/item-list" method="post">
+	<form style="margin-top:50px;" action="item-list" method="post">
       <input type="submit" name="button" value="商品一覧へもどる">
 	</form>
 </div>

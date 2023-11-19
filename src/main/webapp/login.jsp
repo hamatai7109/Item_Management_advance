@@ -15,9 +15,15 @@
 			</div>
 			<h2>商品管理システム</h2>
 			<%-- ログインに失敗したときのメッセージ --%>
-			<c:if test="${not empty requestScope.errorMessage}">
-			    <p style="color: red">${requestScope.errorMessage}</p>
-			</c:if>
+			<%-- JSTL（JavaServer Pages Standard Tag Library）を使用した場合
+				<c:if test="${not empty requestScope.errorMessage}">
+				    <p style="color: red">${requestScope.errorMessage}</p>
+				</c:if>
+			--%>
+			<%-- スクリプトレットを使用した場合 --%>
+			<% if (request.getAttribute("errorMessage") != null) { %>
+			    <p style="color: red"><%= request.getAttribute("errorMessage") %></p>
+			<% } %>
 			<form action=login method="post">
 				<input type="text" name="id" placeholder="userId"><br>
 				<input type="password" name="password" placeholder="password"><br>

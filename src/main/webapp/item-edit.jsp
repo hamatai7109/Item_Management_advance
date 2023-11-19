@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
- 
+<%@ page import="java.util.List" %>    
+<%@ page import="model.entity.MakerBean" %>		
+<%-- スクリプトレットを使用した場合 --%>
+<%-- <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> --%> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,9 +15,15 @@
 <div style="text-align: center;">
 	<h1>商品編集フォーム</h1>
 	<%-- 商品編集に失敗したときのメッセージ --%>
+	<%-- JSTL（JavaServer Pages Standard Tag Library）を使用した場合
 	<c:if test="${not empty requestScope.errorMessage}">
-	    <p style="color: red">${requestScope.errorMessage}</p>
+    	<p style="color: red">${requestScope.errorMessage}</p>
 	</c:if>
+	--%>
+	<%-- スクリプトレットを使用した場合 --%>
+	<% if (request.getAttribute("errorMessage") != null) { %>
+   		<p style="color: red"><%= request.getAttribute("errorMessage") %></p>
+	<% } %>		
 	<form action="item-edit" method="post" style="display: flex; flex-direction: column; gap: 10px;">
 		<div>
 			<label>商品名:
@@ -23,13 +31,23 @@
 			</label>
 		</div>
 		<div>
-			<label>メーカー:
-				<select name="makerCode" required>
-					<c:forEach var="maker" items="${makers}">
+		    <label>メーカー:
+		        <select name="makerCode" required>
+		            <%
+		                List<MakerBean> makers = (List<MakerBean>) request.getAttribute("makers");
+		                for (MakerBean maker : makers) {
+		            %>
+		                <option value="<%= maker.getMakerCode() %>"><%= maker.getMakerName() %></option>
+		            <%
+		                }
+		            %>	
+		            <%-- JSTL（JavaServer Pages Standard Tag Library）を使用した場合     
+		            <c:forEach var="maker" items="${makers}">
 					    <option value="<c:out value="${maker.getMakerCode()}" />"><c:out value="${maker.getMakerName()}" /></option>
 					</c:forEach>
-				</select>
-			</label>
+					--%>
+		        </select>
+		    </label>
 		</div>
 		<div>
 			<label>価格(万円):
