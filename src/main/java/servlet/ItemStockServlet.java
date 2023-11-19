@@ -10,19 +10,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.dao.LanguageDAO;
+import model.dao.StockDAO;
 
 /**
  * Servlet implementation class LoginServlet
  */
-@WebServlet("/language-register")
-public class LanguageServlet extends HttpServlet {
+@WebServlet("/item-stock")
+public class ItemStockServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	* @see HttpServlet#HttpServlet()
 	*/
-	public LanguageServlet() {
+	public ItemStockServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -46,22 +46,40 @@ public class LanguageServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 
 		// リクエストパラメータの取得
-		String languageCode = request.getParameter("languageCode"); // 言語コード
-		String languageName = request.getParameter("languageName"); // 言語名
+		String itemIdParam = request.getParameter("itemId"); //商品ID
+		String arrivalParam = request.getParameter("arrival"); // 入荷
+		String shippingParam = request.getParameter("shipping"); // 出荷
 
-		String url = null; // 転送用パスを格納する変数
+		int itemId = Integer.parseInt(itemIdParam);
 
-		LanguageDAO dao = new LanguageDAO(); // LanguageDAOクラスをインスタンス化
+		// 転送用パスを格納する変数
+		String url = null;
+
+		StockDAO stockDAO = new StockDAO();
 
 		try {
-			// addLanguageを呼び出して、データベースに値を追加
-			dao.addLanguage(languageCode, languageName);
-			url = "language-registerSuccess.jsp";
-		} catch (ClassNotFoundException | SQLException e) {
+			if (itemIdParam != null && arrivalParam != null && shippingParam != null) {
+				int arrival = Integer.parseInt(arrivalParam);
+				int shipping = Integer.parseInt(shippingParam);
+				// editStockを呼び出して、データベースで値を更新
+				stockDAO.ediStock(itemId, arrival, shipping);
+				url = "item-list";
+			} else {
+				//在庫編集フォームを表示
+				request.setAttribute("itemId", itemId);
+				url = "item-stock.jsp";
+			}
+
+		} catch (RuntimeException | ClassNotFoundException | SQLException e) {
+			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
-			url = "language-register.jsp";
-			request.setAttribute("errorMessage", "言語登録に失敗しました。もう一度入力してください。");
+			String errorMessage = "在庫修正に失敗しました。もう一度入力してください。";
+			url = "item-stock.jsp";
+			//在庫編集フォームを表示
+			request.setAttribute("itemId", itemId);
+			request.setAttribute("errorMessage", errorMessage);
 		}
+
 		// 転送
 		RequestDispatcher rd = request.getRequestDispatcher(url);
 		rd.forward(request, response);

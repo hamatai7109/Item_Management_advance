@@ -11,20 +11,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.dao.EmployeeDAO;
-import model.entity.EmployeeBean;
+import model.dao.ItemDAO;
+import model.entity.ItemBean;
 
 /**
  * Servlet implementation class MenuServlet
  */
-@WebServlet("/employee-detail")
-public class EmployeeDetailServlet extends HttpServlet {
+@WebServlet("/item-detail")
+public class ItemDetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public EmployeeDetailServlet() {
+	public ItemDetailServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -47,33 +47,33 @@ public class EmployeeDetailServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 
+		// itemId パラメータを取得
+		String itemIdParam = request.getParameter("itemId");
+
 		// 転送用パスを格納する変数
 		String url = null;
 
-		EmployeeDAO employeeDAO = new EmployeeDAO();
+		ItemDAO itemDAO = new ItemDAO();
 
-		List<EmployeeBean> employees = null;
-
-		// employeeId パラメータを取得
-		String employeeIdParam = request.getParameter("employeeId");
+		List<ItemBean> items = null;
 
 		try {
-			url = "employee-detail.jsp";
+			url = "item-detail.jsp";
 
-			if (employeeIdParam != null) {
+			if (itemIdParam != null) {
 
-				int employeeId = Integer.parseInt(employeeIdParam);
+				int itemId = Integer.parseInt(itemIdParam);
 
-				// employeeId が存在する場合、メソッドを呼び出す
-				employees = employeeDAO.getSelectedEmployees(employeeId);
+				// itemId が存在する場合、メソッドを呼び出す
+				items = itemDAO.getSelectedItems(itemId);
 
-				request.setAttribute("employees", employees);
+				request.setAttribute("items", items);
 			} else {
-				request.setAttribute("errorMessage", "該当する従業員データがありません。");
+				request.setAttribute("errorMessage", "該当する商品データがありません。");
 			}
 
 		} catch (NumberFormatException e) {
-			request.setAttribute("errorMessage", "不正な従業員IDです。");
+			request.setAttribute("errorMessage", "不正な商品IDです。");
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();

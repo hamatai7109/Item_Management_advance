@@ -64,7 +64,7 @@ public class LoginServlet extends HttpServlet {
 
 			// idとpasswordがデータベースに登録されていた場合
 			if (user != null) {
-				url = "menu.jsp"; // メニュー画面のパス
+				url = "/item-list"; // 商品一覧の表示(ItemListServletを経由)
 
 				// セッションオブジェクト取得し、セッションスコープに値をセット
 				HttpSession session = request.getSession();

@@ -7,129 +7,110 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.entity.EmployeeBean;
+import model.entity.ItemBean;
 
-public class EmployeeDAO {
+public class ItemDAO {
 	/**
-	 * 入力された従業員情報をデータベースのm_employeeテーブルに追加
-	 * @param lastName 氏名（姓）
-	 * @param firstName 氏名（名）
-	 * @param gender 性別
-	 * @param birthday 生年月日
-	 * @param phoneNumber 電話番号
-	 * @param sectionCode 部署
-	 * @param languageCode 経験言語
-	 * @param hireDate 入社日
+	 * 入力された商品情報をデータベースのm_itemテーブルに追加
+	 * @param itemName 商品名
+	 * @param makerName メーカー名
+	 * @param price 値段
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public void addEmployee(String lastName, String firstName, String gender, String birthday, String phoneNumber,
-			String sectionCode, String languageCode, String hireDate)
+	public void addItem(String itemName, String makerCode, int price)
 			throws ClassNotFoundException, SQLException {
 
-		String sql = "INSERT INTO m_employee(l_name, f_name, gender, birthday, phone_number, section_code, language_code, hire_date) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO m_item(item_name, maker_code, price) VALUES(?, ?, ?)";
 
 		// try-with-resourcesを使用し、データベース接続確立とプリペアドステートメントを取得
 		try (Connection con = ConnectionManager.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
 
 			// プレースホルダに値をセット
-			pstmt.setString(1, lastName);
-			pstmt.setString(2, firstName);
-			pstmt.setString(3, gender);
-			pstmt.setString(4, birthday);
-			pstmt.setString(5, phoneNumber);
-			pstmt.setString(6, sectionCode);
-			pstmt.setString(7, languageCode);
-			pstmt.setString(8, hireDate);
+			pstmt.setString(1, itemName);
+			pstmt.setString(2, makerCode);
+			pstmt.setInt(3, price);
 
 			// SQL文の実行
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace(); // エラーログを記録
-			throw new RuntimeException("従業員情報を追加できませんでした。", e);
+			throw new RuntimeException("商品情報を追加できませんでした。", e);
 		}
 	}
 
 	/**
-	 * 入力された従業員情報をデータベースのm_employeeテーブルで更新
-	 * @param lastName 氏名（姓）
-	 * @param firstName 氏名（名）
-	 * @param gender 性別
-	 * @param birthday 生年月日
-	 * @param phoneNumber 電話番号
-	 * @param sectionCode 部署
-	 * @param languageCode 経験言語
-	 * @param hireDate 入社日
+	 * 入力された従業員情報をデータベースのm_itemテーブルで更新
+	 * @param itemName 商品名
+	 * @param makerName メーカー名
+	 * @param price 値段
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public void editEmployee(int employeeId, String lastName, String firstName, String gender, String birthday,
-			String phoneNumber, String sectionCode, String languageCode, String hireDate)
+	public void editItem(int itemId, String itemName, String makerCode, int price)
 			throws ClassNotFoundException, SQLException {
 
-		String sql = "UPDATE m_employee SET l_name = ?, f_name = ?, gender = ?, birthday = ?, phone_number = ?, section_code = ?, language_code = ?, hire_date = ? WHERE employee_id = ?;";
+		String sql = "UPDATE m_item SET item_name = ?, maker_code = ?, price = ? WHERE item_id = ?;";
 
 		// try-with-resourcesを使用し、データベース接続確立とプリペアドステートメントを取得
 		try (Connection con = ConnectionManager.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
 
 			// プレースホルダに値をセット
-			pstmt.setString(1, lastName);
-			pstmt.setString(2, firstName);
-			pstmt.setString(3, gender);
-			pstmt.setString(4, birthday);
-			pstmt.setString(5, phoneNumber);
-			pstmt.setString(6, sectionCode);
-			pstmt.setString(7, languageCode);
-			pstmt.setString(8, hireDate);
-			pstmt.setInt(9, employeeId);
+			pstmt.setString(1, itemName);
+			pstmt.setString(2, makerCode);
+			pstmt.setInt(3, price);
+			pstmt.setInt(4, itemId);
 
 			// SQL文の実行
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace(); // エラーログを記録
-			throw new RuntimeException("従業員情報を編集できませんでした。", e);
+			throw new RuntimeException("商品情報を編集できませんでした。", e);
 		}
 	}
 
 	/**
-	 * 入力された従業員情報をデータベースのm_employeeテーブルで更新
-	 * @param employeeId 従業員ID
+	 * 入力された従業員情報をデータベースのm_itemテーブルで削除
+	 * @param itemId 商品ID
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 */
-	public void deleteEmployee(int employeeId)
+	public void deleteItem(int itemId)
 			throws ClassNotFoundException, SQLException {
 
-		String sql = "DELETE FROM m_employee WHERE employee_id = ?";
+		String sql = "DELETE FROM m_item WHERE item_id = ?";
 
 		// try-with-resourcesを使用し、データベース接続確立とプリペアドステートメントを取得
 		try (Connection con = ConnectionManager.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
 
 			// プレースホルダに値をセット
-			pstmt.setInt(1, employeeId);
+			pstmt.setInt(1, itemId);
 
 			// SQL文の実行
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace(); // エラーログを記録
-			throw new RuntimeException("従業員を削除できませんでした。", e);
+			throw new RuntimeException("商品を削除できませんでした。", e);
 		}
 	}
 
 	/**
-	 * データベースからSELECT文で従業員一覧を取得
+	 * データベースのm_itemテーブルからSELECT文で商品一覧を取得
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
-	 * @return 従業員一覧
+	 * @return 商品一覧
 	 */
-	public List<EmployeeBean> getAllEmployees()
+	public List<ItemBean> getAllItems()
 			throws ClassNotFoundException, SQLException {
-		List<EmployeeBean> employees = new ArrayList<>();
+		List<ItemBean> items = new ArrayList<>();
 
-		String sql = "SELECT employee_id,l_name,f_name,gender,birthday,phone_number,section_code,language_code,hire_date FROM m_employee ORDER BY employee_id";
+		String sql = "SELECT item_id,item_name,m.maker_name,price FROM m_item i "
+				+ "INNER JOIN m_maker m  "
+				+ "ON i.maker_code = m.maker_code "
+				+ "ORDER BY item_id desc";
 		ResultSet resultSet = null;
 
 		// try-with-resourcesを使用し、データベース接続確立とプリペアドステートメントを取得
@@ -140,34 +121,34 @@ public class EmployeeDAO {
 			resultSet = pstmt.executeQuery();
 
 			while (resultSet.next()) {
-				EmployeeBean employee = new EmployeeBean();
-				employee.setEmployeeId(resultSet.getInt("employee_id"));
-				employee.setLName(resultSet.getString("l_name"));
-				employee.setFName(resultSet.getString("f_name"));
-				employee.setGender(resultSet.getString("gender"));
-				employee.setBirthday(resultSet.getString("birthday"));
-				employee.setPhoneNumber(resultSet.getString("phone_number"));
-				employee.setSectionCode(resultSet.getString("section_code"));
-				employee.setLanguageCode(resultSet.getString("language_code"));
-				employee.setHireDate(resultSet.getString("hire_date"));
-				employees.add(employee);
+				ItemBean item = new ItemBean();
+				item.setItemId(resultSet.getInt("item_id"));
+				item.setItemName(resultSet.getString("item_name"));
+				item.setMakerName(resultSet.getString("maker_name"));
+				item.setPrice(resultSet.getInt("price"));
+				items.add(item);
 			}
 		}
-		return employees;
+		return items;
 	}
 
 	/**
-	 * データベースからSELECT文で選択された従業員を取得
+	 * データベースからSELECT文で選択された商品情報を取得
 	 * @params 
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
-	 * @return　詳細な従業員データ
+	 * @return　詳細な商品データ
 	 */
-	public List<EmployeeBean> getSelectedEmployees(int employeeId)
+	public List<ItemBean> getSelectedItems(int itemId)
 			throws ClassNotFoundException, SQLException {
-		List<EmployeeBean> employees = new ArrayList<>();
+		List<ItemBean> items = new ArrayList<>();
 
-		String sql = "SELECT employee_id,l_name,f_name,gender,birthday,phone_number,section_code,language_code,hire_date,update_datetime FROM m_employee WHERE employee_id = ?";
+		String sql = "SELECT i.item_id,i.item_name,m.maker_name,i.price,s.stock,i.insert_datetime,i.update_datetime FROM m_item i "
+				+ "LEFT JOIN  t_stock s "
+				+ "ON i.item_id = s.item_id "
+				+ "LEFT JOIN m_maker m "
+				+ "ON i.maker_code = m.maker_code "
+				+ "WHERE i.item_id = ?";
 		ResultSet resultSet = null;
 
 		// try-with-resourcesを使用し、データベース接続確立とプリペアドステートメントを取得
@@ -175,43 +156,45 @@ public class EmployeeDAO {
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
 
 			// プレースホルダーに従業員番号をセット
-			pstmt.setInt(1, employeeId);
+			pstmt.setInt(1, itemId);
 
 			//SELECTした結果の従業員データをresultSetに格納
 			resultSet = pstmt.executeQuery();
 
 			while (resultSet.next()) {
-				EmployeeBean employee = new EmployeeBean();
-				employee.setEmployeeId(resultSet.getInt("employee_id"));
-				employee.setLName(resultSet.getString("l_name"));
-				employee.setFName(resultSet.getString("f_name"));
-				employee.setGender(resultSet.getString("gender"));
-				employee.setBirthday(resultSet.getString("birthday"));
-				employee.setPhoneNumber(resultSet.getString("phone_number"));
-				employee.setSectionCode(resultSet.getString("section_code"));
-				employee.setLanguageCode(resultSet.getString("language_code"));
-				employee.setHireDate(resultSet.getString("hire_date"));
-				employee.setUpdateDatetime(resultSet.getString("update_datetime"));
-				employees.add(employee);
+				ItemBean item = new ItemBean();
+				item.setItemId(resultSet.getInt("item_id"));
+				item.setItemName(resultSet.getString("item_name"));
+				item.setMakerName(resultSet.getString("maker_name"));
+				item.setPrice(resultSet.getInt("price"));
+				item.setStock(resultSet.getInt("stock"));
+				item.setInsertDatetime(resultSet.getString("insert_datetime"));
+				item.setUpdateDatetime(resultSet.getString("update_datetime"));
+				items.add(item);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return employees;
+		return items;
 	}
 
 	/**
 	 * 検索された名前と一致する名前のデータだけをSELECT文で取得
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
-	 * @return 従業員一覧
+	 * @return 商品一覧
 	 */
-	public List<EmployeeBean> getSearchedEmployees(String searchWord)
+	public List<ItemBean> getSearchedItems(String searchWord)
 			throws ClassNotFoundException, SQLException {
 
-		List<EmployeeBean> employees = new ArrayList<>();
+		List<ItemBean> items = new ArrayList<>();
 
-		String sql = "SELECT employee_id,l_name,f_name,gender,birthday,phone_number,section_code,language_code,hire_date FROM m_employee WHERE l_name LIKE ? OR f_name LIKE ? ORDER BY employee_id";
+		String sql = "SELECT item_id,item_name,m.maker_name,price FROM m_item i "
+				+ "INNER JOIN m_maker m  "
+				+ "ON i.maker_code = m.maker_code "
+				+ "WHERE item_name LIKE ? "
+				+ "ORDER BY item_id";
+
 		ResultSet resultSet = null;
 
 		// try-with-resourcesを使用し、データベース接続確立とプリペアドステートメントを取得
@@ -220,23 +203,17 @@ public class EmployeeDAO {
 
 			// プレースホルダーに検索ワードをセット
 			pstmt.setString(1, "%" + searchWord + "%");
-			pstmt.setString(2, "%" + searchWord + "%");
 
 			//SELECTした結果の従業員データをresultSetに格納
 			resultSet = pstmt.executeQuery();
 
 			while (resultSet.next()) {
-				EmployeeBean employee = new EmployeeBean();
-				employee.setEmployeeId(resultSet.getInt("employee_id"));
-				employee.setLName(resultSet.getString("l_name"));
-				employee.setFName(resultSet.getString("f_name"));
-				employee.setGender(resultSet.getString("gender"));
-				employee.setBirthday(resultSet.getString("birthday"));
-				employee.setPhoneNumber(resultSet.getString("phone_number"));
-				employee.setSectionCode(resultSet.getString("section_code"));
-				employee.setLanguageCode(resultSet.getString("language_code"));
-				employee.setHireDate(resultSet.getString("hire_date"));
-				employees.add(employee);
+				ItemBean item = new ItemBean();
+				item.setItemId(resultSet.getInt("item_id"));
+				item.setItemName(resultSet.getString("item_name"));
+				item.setMakerName(resultSet.getString("maker_name"));
+				item.setPrice(resultSet.getInt("price"));
+				items.add(item);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -250,6 +227,6 @@ public class EmployeeDAO {
 				}
 			}
 		}
-		return employees;
+		return items;
 	}
 }

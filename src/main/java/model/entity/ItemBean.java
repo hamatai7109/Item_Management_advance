@@ -2,188 +2,150 @@ package model.entity;
 
 import java.io.Serializable;
 
-public class EmployeeBean implements Serializable {
+public class ItemBean implements Serializable {
 	/**
-	 * 従業員ID
+	 * 商品ID
 	 */
-	private int employeeId;
+	private int itemId;
 
 	/**
-	 * 氏名（姓）
+	 * 商品名
 	 */
-	private String lName;
+	private String itemName;
 
 	/**
-	 * 氏名（名）
+	 * メーカーCD
 	 */
-	private String fName;
+	private String makerCode;
 
 	/**
-	 * 性別
+	 * メーカー名
 	 */
-	private String gender;
+	private String makerName;
 
 	/**
-	 * 生年月日
+	 * 値段
 	 */
-	private String birthday;
+	private int price;
 
 	/**
-	 * 電話番号
+	 * 在庫数
 	 */
-	private String phoneNumber;
+	private int stock;
 
 	/**
-	 * 部署
+	 * 登録日
 	 */
-	private String sectionCode;
+	private String insertDatetime;
 
 	/**
-	 * 経験言語
-	 */
-	private String languageCode;
-
-	/**
-	 * 入社日
-	 */
-	private String hireDate;
-
-	/**
-	 * 更新日付
+	 * 更新日
 	 */
 	private String updateDatetime;
 
 	/**
 	 * デフォルトコンストラクタ
 	 */
-	public EmployeeBean() {
+	public ItemBean() {
 
 	}
 
 	/**
-	 * @return employee_id
+	 * @return item_id
 	 */
-	public int getEmployeeId() {
-		return employeeId;
+	public int getItemId() {
+		return itemId;
 	}
 
 	/**
-	 * @param employee_id　を セットする
+	 * @param item_id　を セットする
 	 */
-	public void setEmployeeId(int employeeId) {
-		this.employeeId = employeeId;
+	public void setItemId(int itemId) {
+		this.itemId = itemId;
 	}
 
 	/**
-	 * @return lName
+	 * @return itemName
 	 */
-	public String getLName() {
-		return lName;
+	public String getItemName() {
+		return itemName;
 	}
 
 	/**
-	 * @param lName　を セットする
+	 * @param itemName　を セットする
 	 */
-	public void setLName(String lName) {
-		this.lName = lName;
+	public void setItemName(String itemName) {
+		this.itemName = itemName;
 	}
 
 	/**
-	 * @return fName
+	 * @return makerCode
 	 */
-	public String getFName() {
-		return fName;
+	public String getMakerCode() {
+		return makerCode;
 	}
 
 	/**
-	 * @param fName　を セットする
+	 * @param makerCode　を セットする
 	 */
-	public void setFName(String fName) {
-		this.fName = fName;
+	public void setMakerCode(String makerCode) {
+		this.makerCode = makerCode;
 	}
 
 	/**
-	 * @return gender
+	 * @return makerName
 	 */
-	public String getGender() {
-		return gender;
+	public String getMakerName() {
+		return makerName;
 	}
 
 	/**
-	 * @param gender　を セットする
+	 * @param makerName　を セットする
 	 */
-	public void setGender(String gender) {
-		this.gender = gender;
+	public void setMakerName(String makerName) {
+		this.makerName = makerName;
 	}
 
 	/**
-	 * @return birthday
+	 * @return price
 	 */
-	public String getBirthday() {
-		return birthday;
+	public int getPrice() {
+		return price;
 	}
 
 	/**
-	 * @param birthday　を セットする
+	 * @param price　を セットする
 	 */
-	public void setBirthday(String birthday) {
-		this.birthday = birthday;
+	public void setPrice(int price) {
+		this.price = price;
 	}
 
 	/**
-	 * @return phoneNumber
+	 * @return stock
 	 */
-	public String getPhoneNumber() {
-		return phoneNumber;
+	public int getStock() {
+		return stock;
 	}
 
 	/**
-	 * @param phoneNumber　を セットする
+	 * @param stock　を セットする
 	 */
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
+	public void setStock(int stock) {
+		this.stock = stock;
 	}
 
 	/**
-	 * @return sectionCode
+	 * @return insertDatetime
 	 */
-	public String getSectionCode() {
-		return sectionCode;
+	public String getInsertDatetime() {
+		return insertDatetime;
 	}
 
 	/**
-	 * @param sectionCode　を セットする
+	 * @param insert_datetime　を セットする
 	 */
-	public void setSectionCode(String sectionCode) {
-		this.sectionCode = sectionCode;
-	}
-
-	/**
-	 * @return languageCode
-	 */
-	public String getLanguageCode() {
-		return languageCode;
-	}
-
-	/**
-	 * @param languageCode　を セットする
-	 */
-	public void setLanguageCode(String languageCode) {
-		this.languageCode = languageCode;
-	}
-
-	/**
-	 * @return hireDate
-	 */
-	public String getHireDate() {
-		return hireDate;
-	}
-
-	/**
-	 * @param hireDate　を セットする
-	 */
-	public void setHireDate(String hireDate) {
-		this.hireDate = hireDate;
+	public void setInsertDatetime(String insertDatetime) {
+		this.insertDatetime = insertDatetime;
 	}
 
 	/**
@@ -194,7 +156,7 @@ public class EmployeeBean implements Serializable {
 	}
 
 	/**
-	 * @param hireDate　を セットする
+	 * @param update_datetime　を セットする
 	 */
 	public void setUpdateDatetime(String updateDatetime) {
 		this.updateDatetime = updateDatetime;

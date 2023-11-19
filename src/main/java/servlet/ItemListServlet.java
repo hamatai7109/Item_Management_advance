@@ -11,20 +11,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.dao.EmployeeDAO;
-import model.entity.EmployeeBean;
+import model.dao.ItemDAO;
+import model.entity.ItemBean;
 
 /**
  * Servlet implementation class MenuServlet
  */
-@WebServlet("/employee-list")
-public class EmployeeListServlet extends HttpServlet {
+@WebServlet("/item-list")
+public class ItemListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public EmployeeListServlet() {
+	public ItemListServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -50,9 +50,9 @@ public class EmployeeListServlet extends HttpServlet {
 		// 転送用パスを格納する変数
 		String url = null;
 
-		EmployeeDAO employeeDAO = new EmployeeDAO();
+		ItemDAO ItemDAO = new ItemDAO();
 
-		List<EmployeeBean> employees = null;
+		List<ItemBean> items = null;
 
 		// searchWord パラメータを取得
 		String searchWord = request.getParameter("searchWord");
@@ -60,19 +60,19 @@ public class EmployeeListServlet extends HttpServlet {
 		try {
 			if (searchWord != null) {
 				// searchWord が指定されている場合、検索メソッドを呼び出す
-				employees = employeeDAO.getSearchedEmployees(searchWord);
+				items = ItemDAO.getSearchedItems(searchWord);
 
 				// 検索結果がnullの場合、エラーメッセージをセット
-				if (employees.size() == 0) {
+				if (items.size() == 0) {
 					request.setAttribute("errorMessage", "該当する検索結果がありません。");
 				}
 			} else {
 				// searchWord が指定されていない場合、全従業員を取得するメソッドを呼び出す
-				employees = employeeDAO.getAllEmployees();
+				items = ItemDAO.getAllItems();
 			}
 
-			url = "employee-list.jsp";
-			request.setAttribute("employees", employees);
+			url = "item-list.jsp";
+			request.setAttribute("items", items);
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();

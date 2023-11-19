@@ -2,49 +2,49 @@ package model.entity;
 
 import java.io.Serializable;
 
-public class LanguageBean implements Serializable {
+public class MakerBean implements Serializable {
 	/**
-	 * language_code
+	 * メーカーCD
 	 */
-	private String languageCode;
+	private String makerCode;
 
 	/**
-	 * language_name
+	 * メーカー名
 	 */
-	private String languageName;
+	private String makerName;
 
 	/**
 	 * デフォルトコンストラクタ
 	 */
-	public LanguageBean() {
+	public MakerBean() {
 
 	}
 
 	/**
-	 * @return languageCode
+	 * @return makerCode
 	 */
-	public String getLanguageCode() {
-		return languageCode;
+	public String getMakerCode() {
+		return makerCode;
 	}
 
 	/**
-	 * @param languageCode セットする languageCode
+	 * @param makerCode セットする 
 	 */
-	public void setLanguageCode(String languageCode) {
-		this.languageCode = languageCode;
+	public void setMakerCode(String makerCode) {
+		this.makerCode = makerCode;
 	}
 
 	/**
-	 * @return languageName
+	 * @return makerName
 	 */
-	public String getLanguageName() {
-		return languageName;
+	public String getMakerName() {
+		return makerName;
 	}
 
 	/**
-	 * @param languageName セットする languageName
+	 * @param makerName セットする 
 	 */
-	public void setLanguageName(String languageName) {
-		this.languageName = languageName;
+	public void setMakerName(String makerName) {
+		this.makerName = makerName;
 	}
 }

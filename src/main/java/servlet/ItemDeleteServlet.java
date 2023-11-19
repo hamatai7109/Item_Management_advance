@@ -11,20 +11,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.dao.EmployeeDAO;
-import model.entity.EmployeeBean;
+import model.dao.ItemDAO;
+import model.entity.ItemBean;
 
 /**
  * Servlet implementation class MenuServlet
  */
-@WebServlet("/employee-delete")
-public class EmployeeDeleteServlet extends HttpServlet {
+@WebServlet("/item-delete")
+public class ItemDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public EmployeeDeleteServlet() {
+	public ItemDeleteServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -48,45 +48,45 @@ public class EmployeeDeleteServlet extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 
 		// リクエストパラメータの取得
-		String employeeIdParam = request.getParameter("employeeId"); // 従業員ID
-		String employeeDeleteCofirm = request.getParameter("employeeDeleteCofirm"); // 削除確認OK
-		int employeeId = Integer.parseInt(employeeIdParam);
+		String itemIdParam = request.getParameter("itemId"); // 商品ID
+		String itemDeleteCofirm = request.getParameter("itemDeleteCofirm"); // 削除確認OK
+		int itemId = Integer.parseInt(itemIdParam);
 
 		// 転送用パスを格納する変数
 		String url = null;
 
-		EmployeeDAO employeeDAO = new EmployeeDAO();
+		ItemDAO itemDAO = new ItemDAO();
 
-		List<EmployeeBean> employees = null;
+		List<ItemBean> items = null;
 
 		try {
-			if (employeeDeleteCofirm != null) {
-				// deleteEmployeeを呼び出して、データベースから削除
-				employeeDAO.deleteEmployee(employeeId);
-				url = "employee-deleteSuccess.jsp";
+			if (itemDeleteCofirm != null) {
+				// deleteItemを呼び出して、データベースから削除
+				itemDAO.deleteItem(itemId);
+				url = "item-list";
 			} else {
 				//削除確認画面を表示
-				employees = employeeDAO.getSelectedEmployees(employeeId);
-				request.setAttribute("employees", employees);
-				request.setAttribute("employeeId", employeeId);
-				url = "employee-delete.jsp";
+				items = itemDAO.getSelectedItems(itemId);
+				request.setAttribute("items", items);
+				request.setAttribute("itemId", itemId);
+				url = "item-delete.jsp";
 			}
 
 		} catch (RuntimeException | ClassNotFoundException | SQLException e) {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
-			String errorMessage = "従業員削除に失敗しました。";
-			url = "employee-delete.jsp";
+			String errorMessage = "商品削除に失敗しました。";
+			url = "item-delete.jsp";
 
 			//削除確認画面を表示
 			try {
-				employees = employeeDAO.getSelectedEmployees(employeeId);
+				items = itemDAO.getSelectedItems(itemId);
 			} catch (ClassNotFoundException | SQLException e1) {
 				// TODO 自動生成された catch ブロック
 				e1.printStackTrace();
 			}
-			request.setAttribute("employees", employees);
-			request.setAttribute("employeeId", employeeId);
+			request.setAttribute("items", items);
+			request.setAttribute("itemId", itemId);
 			request.setAttribute("errorMessage", errorMessage);
 		}
 

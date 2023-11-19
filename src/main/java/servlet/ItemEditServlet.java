@@ -11,23 +11,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.dao.EmployeeDAO;
-import model.dao.LanguageDAO;
-import model.dao.SectionDAO;
-import model.entity.LanguageBean;
-import model.entity.SectionBean;
+import model.dao.ItemDAO;
+import model.dao.MakerDAO;
+import model.entity.MakerBean;
 
 /**
  * Servlet implementation class MenuServlet
  */
-@WebServlet("/employee-edit")
-public class EmployeeEditServlet extends HttpServlet {
+@WebServlet("/item-edit")
+public class ItemEditServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public EmployeeEditServlet() {
+	public ItemEditServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -51,65 +49,49 @@ public class EmployeeEditServlet extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 
 		// リクエストパラメータの取得
-		String employeeIdParam = request.getParameter("employeeId"); // 従業員ID
-		String lastName = request.getParameter("lastName"); // 氏名（姓）
-		String firstName = request.getParameter("firstName"); // 氏名（名）
-		String gender = request.getParameter("gender"); // 性別
-		String birthday = request.getParameter("birthday"); // 生年月日
-		String phoneNumber = request.getParameter("phoneNumber"); // 電話番号
-		String sectionCode = request.getParameter("sectionCode"); // 部署
-		String languageCode = request.getParameter("languageCode"); // 言語
-		String hireDate = request.getParameter("hireDate"); // 入社日
+		String itemIdParam = request.getParameter("itemId"); //商品ID
+		String itemName = request.getParameter("itemName"); // 商品名
+		String makerCode = request.getParameter("makerCode"); // メーカーCD
+		String priceParam = request.getParameter("price"); // 価格
 
-		int employeeId = Integer.parseInt(employeeIdParam);
+		int itemId = Integer.parseInt(itemIdParam);
 
 		// 転送用パスを格納する変数
 		String url = null;
 
-		EmployeeDAO employeeDAO = new EmployeeDAO();
-		SectionDAO sectionDAO = new SectionDAO();
-		LanguageDAO languageDAO = new LanguageDAO();
+		ItemDAO itemDAO = new ItemDAO();
+		MakerDAO makerDAO = new MakerDAO();
 
-		List<SectionBean> sections = null;
-		List<LanguageBean> languages = null;
+		List<MakerBean> makers = null;
 
 		try {
-			if (employeeIdParam != null && lastName != null && firstName != null && gender != null && birthday != null && phoneNumber != null
-					&& sectionCode != null && languageCode != null && hireDate != null) {
-				// editEmployeeを呼び出して、データベースで値を更新
-				employeeDAO.editEmployee(employeeId, lastName, firstName, gender, birthday, phoneNumber, sectionCode, languageCode, hireDate);
-				url = "employee-editSuccess.jsp";
+			if (itemIdParam != null && itemName != null && makerCode != null && priceParam != null) {
+				int price = Integer.parseInt(priceParam);
+				// editItemを呼び出して、データベースで値を更新
+				itemDAO.editItem(itemId, itemName, makerCode, price);
+				url = "item-list";
 			} else {
-				//編集フォームを表示
-				sections = sectionDAO.getAllSections();
-				languages = languageDAO.getAllLanguages();
-				request.setAttribute("sections", sections);
-				request.setAttribute("languages", languages);
-				request.setAttribute("employeeId", employeeId);
-				url = "employee-edit.jsp";
+				//商品編集フォームを表示
+				makers = makerDAO.getAllMakers();
+				request.setAttribute("makers", makers);
+				request.setAttribute("itemId", itemId);
+				url = "item-edit.jsp";
 			}
 
 		} catch (RuntimeException | ClassNotFoundException | SQLException e) {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
-			String errorMessage = "従業員編集に失敗しました。もう一度入力してください。";
-			url = "employee-edit.jsp";
-			//編集フォームを表示
+			String errorMessage = "商品編集に失敗しました。もう一度入力してください。";
+			url = "item-edit.jsp";
+			//商品編集フォームを表示
 			try {
-				sections = sectionDAO.getAllSections();
+				makers = makerDAO.getAllMakers();
 			} catch (ClassNotFoundException | SQLException e1) {
 				// TODO 自動生成された catch ブロック
 				e1.printStackTrace();
 			}
-			try {
-				languages = languageDAO.getAllLanguages();
-			} catch (ClassNotFoundException | SQLException e1) {
-				// TODO 自動生成された catch ブロック
-				e1.printStackTrace();
-			}
-			request.setAttribute("sections", sections);
-			request.setAttribute("languages", languages);
-			request.setAttribute("employeeId", employeeId);
+			request.setAttribute("makers", makers);
+			request.setAttribute("itemId", itemId);
 			request.setAttribute("errorMessage", errorMessage);
 		}
 

@@ -2,41 +2,36 @@ package model.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
-import model.entity.SectionBean;
-
-public class SectionDAO {
+public class StockDAO {
 	/**
-	 * データベースからSELECT文で部署一覧を取得
+	 * 入力された従業員情報をデータベースのt_stockテーブルで更新
+	 * @param itemId 商品ID
+	 * @param arrival 入荷
+	 * @param shipping 出荷
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
-	 * @return 部署一覧
 	 */
-	public List<SectionBean> getAllSections()
+	public void ediStock(int itemId, int arrival, int shipping)
 			throws ClassNotFoundException, SQLException {
-		List<SectionBean> sections = new ArrayList<>();
 
-		String sql = "SELECT section_code, section_name FROM m_section ORDER BY section_code";
-		ResultSet resultSet = null;
+		String sql = "UPDATE t_stock SET arrival = ?, shipping = ? WHERE item_id = ?;";
 
 		// try-with-resourcesを使用し、データベース接続確立とプリペアドステートメントを取得
 		try (Connection con = ConnectionManager.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
 
-			//SELECTした結果の部署名をresultSetに格納
-			resultSet = pstmt.executeQuery();
+			// プレースホルダに値をセット
+			pstmt.setInt(1, arrival);
+			pstmt.setInt(2, shipping);
+			pstmt.setInt(3, itemId);
 
-			while (resultSet.next()) {
-				SectionBean section = new SectionBean();
-				section.setSectionCode(resultSet.getString("section_code"));
-				section.setSectionName(resultSet.getString("section_name"));
-				sections.add(section);
-			}
+			// SQL文の実行
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace(); // エラーログを記録
+			throw new RuntimeException("在庫情報を編集できませんでした。", e);
 		}
-		return sections;
 	}
 }
